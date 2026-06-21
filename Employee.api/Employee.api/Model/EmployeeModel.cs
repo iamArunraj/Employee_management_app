@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Employee.api.Model
 {
     [Table("employeeTbl")]
-    public class Employee
+    public class EmployeeModel
     {
         public int employeeId { get; set; }
         [Required, MaxLength(50)]
@@ -19,6 +19,7 @@ namespace Employee.api.Model
         public string altContactNo { get; set; } = string.Empty;
         public string address { get; set; } = string.Empty;
         public int designationId { get; set; }
+        public int designationName { get; set; }
         public DateTime createdDate { get; set; }
         public DateTime modifiedDate { get; set; }
     }

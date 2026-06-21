@@ -20,5 +20,46 @@ namespace Employee.api.Controllers
             var deptList = _context.Departments.ToList();
             return Ok(deptList);
         }
+
+        [HttpPost("AddDepartment")]
+        public IActionResult AddDepartment([FromBody] Department dept)
+        {
+            bool exists = _context.Departments
+                .Any(d => d.departmentName.ToLower() == dept.departmentName.ToLower());
+            if(exists)
+            {
+                return BadRequest("Department name must be unique");
+            }
+            _context.Departments.Add(dept);
+            _context.SaveChanges();
+            return Ok("Department added successfully!");
+        }
+
+        [HttpPut("UpdateDepartment")]
+        public IActionResult updateDepartment([FromBody] Department dept)
+        {
+            var existingDept = _context.Departments.Find(dept.departmentId);
+            if (existingDept == null)
+            {
+                return NotFound("Department not found");
+            }
+            existingDept.departmentName = dept.departmentName;
+            existingDept.isActive = dept.isActive;
+            _context.SaveChanges();
+            return Ok("Department updated succcessfulyy!");
+        }
+
+        [HttpDelete("DeleteDepartment/{id}")]
+        public IActionResult DeleteDepartment(int id)
+        {
+            var dept = _context.Departments.Find(id);
+            if (dept == null)
+            {
+                return NotFound("Depatment not found");
+            }
+            _context.Departments.Remove(dept);
+            _context.SaveChanges();
+            return Ok("Department deleted successfully!");
+        }
     }
 }

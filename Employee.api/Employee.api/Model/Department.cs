@@ -10,6 +10,6 @@ namespace Employee.api.Model
         public int departmentId { get; set; }
         [Required, MaxLength(50)]
         public string departmentName { get; set; } = string.Empty;
-        public bool icActive { get; set; }
+        public bool isActive { get; set; }
     }
 }
