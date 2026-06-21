@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Department CRUD UI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+            margin: 0;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+            padding: 28px;
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 1.9rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 16px;
+            margin-bottom: 18px;
+            align-items: start;
+        }
+
+        .col-2 {
+            grid-column: span 2;
+        }
+
+        .col-3 {
+            grid-column: span 3;
+        }
+
+        .col-4 {
+            grid-column: span 4;
+        }
+
+        .col-5 {
+            grid-column: span 5;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            background: #f8fafc;
+        }
+
+        .checkbox-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .checkbox-field input {
+            width: 18px;
+            height: 18px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-save {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .btn-reset {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+            min-width: 640px;
+        }
+
+        th,
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        th {
+            background: #f8fafc;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .status-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            background: #ecfdf5;
+            color: #166534;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .actions button {
+            border: none;
+            background: transparent;
+            color: #2563eb;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 8px 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Department CRUD UI</h1>
+
+        <div class="form-row">
+            <div class="col-5 field">
+                <label for="departmentName">Department Name</label>
+                <input type="text" [(ngModel)]="newDepObj.departmentName" id="departmentName"
+                    placeholder="Enter department name" />
+            </div>
+
+            <div class="col-2 field">
+                <label for="isActive">Status</label>
+                <div class="checkbox-field">
+                    <input type="checkbox" [(ngModel)]="newDepObj.isActive" id="isActive" />
+                    <label for="isActive">Active</label>
+                </div>
+            </div>
+
+            <!-- save button -->
+            <div class="col-auto">
+                @if(newDepObj.departmentId == 0) {
+                <button (click)="onSaveDept()" class="btn btn-success">
+                    Save
+                </button>
+                } @else {
+                <button (click)="onUpdateDept()" class="btn btn-warning">
+                    Update
+                </button>
+
+                }
+            </div>
+
+            <!-- reset button -->
+            <div class="col-auto">
+                <button class="btn btn-secondary" (click)="onReset()">
+                    Reset
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Department Name</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @for(item of deptList(); track $index) {
+            <tr>
+                <td>{{$index}}</td>
+                <td>{{item.departmentName}}</td>
+                <td>{{item.isActive}}</td>
+                <td>
+                    <button class="btn btn-warning btn-sm mx-2" (click)="onEdit(item)">Edit</button>
+                    <button class="btn btn-danger btn-sm" (click)="onDelete(item.departmentId)">Delete</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</body>
+
+</html>

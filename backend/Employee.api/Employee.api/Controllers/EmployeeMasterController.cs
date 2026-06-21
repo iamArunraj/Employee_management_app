@@ -95,7 +95,6 @@ namespace Employee.api.Controllers
                 existing.pincode = model.pincode;
                 existing.address = model.address;
                 existing.designationId = model.designationId;
-                existing.designationName = model.designationName;
                 existing.modifiedDate = DateTime.Now;
                 await _context.SaveChangesAsync();
                 return Ok(new { Message = "Employee updated successfully!" });
@@ -215,7 +214,6 @@ namespace Employee.api.Controllers
                         user.email,
                         user.contactNo,
                         user.designationId,
-                        user.designationName,
                         user.role
                     }
                 });

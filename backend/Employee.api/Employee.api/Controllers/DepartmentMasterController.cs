@@ -32,7 +32,7 @@ namespace Employee.api.Controllers
             }
             _context.Departments.Add(dept);
             _context.SaveChanges();
-            return Ok("Department added successfully!");
+            return Created("Department added successfully!", dept);
         }
 
         [HttpPut("UpdateDepartment")]
@@ -46,7 +46,7 @@ namespace Employee.api.Controllers
             existingDept.departmentName = dept.departmentName;
             existingDept.isActive = dept.isActive;
             _context.SaveChanges();
-            return Ok("Department updated succcessfulyy!");
+            return Created("Department updated succcessfulyy!", dept);
         }
 
         [HttpDelete("DeleteDepartment/{id}")]
@@ -59,7 +59,7 @@ namespace Employee.api.Controllers
             }
             _context.Departments.Remove(dept);
             _context.SaveChanges();
-            return Ok("Department deleted successfully!");
+            return Created("Department deleted successfully!", dept);
         }
     }
 }

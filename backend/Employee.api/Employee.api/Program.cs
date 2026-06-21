@@ -13,6 +13,13 @@ namespace Employee.api
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddCors(opt =>
+            {
+                opt.AddPolicy("enableAll", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                });
+            });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -29,6 +36,8 @@ namespace Employee.api
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("enableAll");
 
             app.UseAuthorization();
 

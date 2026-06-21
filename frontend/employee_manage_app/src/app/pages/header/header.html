@@ -1,0 +1,49 @@
+<div class="app-layout" [class.collapsed]="sidebarCollapsed()">
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <button class="sidebar-toggle" type="button" (click)="toggleSidebar()" aria-label="Toggle sidebar">
+        <span class="toggle-icon">☰</span>
+      </button>
+      <div class="brand">
+        <div class="brand-mark">EM</div>
+        <div class="brand-name">Employee Hub</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a routerLink="/dashboard" routerLinkActive="active">
+        <span class="icon">🏠</span>
+        <span class="text">Dashboard</span>
+      </a>
+      <a routerLink="/employees" routerLinkActive="active">
+        <span class="icon">👥</span>
+        <span class="text">Employees</span>
+      </a>
+      <a routerLink="/new-employee" routerLinkActive="active">
+        <span class="icon">➕</span>
+        <span class="text">New Employee</span>
+      </a>
+      <a routerLink="/department" routerLinkActive="active">
+        <span class="icon">🏢</span>
+        <span class="text">Department</span>
+      </a>
+      <a routerLink="/designation" routerLinkActive="active">
+        <span class="icon">📌</span>
+        <span class="text">Designation</span>
+      </a>
+    </nav>
+  </aside>
+
+  <div class="content-area">
+    <header class="page-header">
+      <button class="mobile-toggle" type="button" (click)="toggleSidebar()" aria-label="Open sidebar">
+        ☰
+      </button>
+      <div class="header-title">Employee Management</div>
+    </header>
+
+    <main class="page-body">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
