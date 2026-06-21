@@ -23,6 +23,10 @@ namespace Employee.api.Controllers
                 var data = await _context.Designations.ToListAsync();
                 return Ok(data);
             }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = ex.Message });
+            }
         }
 
         [HttpGet("{id}")]
@@ -31,7 +35,7 @@ namespace Employee.api.Controllers
             var designation = await _context.Designations.FindAsync();
             if(designation == null)
                 return NotFound(new { message = "Designation not found" });
-            return Ok(designation");
+            return Ok(designation);
         }
 
         [HttpPost]
@@ -83,10 +87,14 @@ namespace Employee.api.Controllers
                 var designation = await _context.Designations.FindAsync(id);
                 if (designation == null)
                     return NotFound(new { Message = "Designation not found" });
-                _context.Departments.Remove(designation);
+                _context.Designations.Remove(designation);
                 await _context.SaveChangesAsync();
                 return Ok("Designation deleted successfully!");
 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = ex.Message });
             }
         }
 

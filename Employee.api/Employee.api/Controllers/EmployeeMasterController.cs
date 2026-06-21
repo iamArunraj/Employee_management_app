@@ -190,5 +190,42 @@ namespace Employee.api.Controllers
                 return StatusCode(500, new { Message = ex.Message });
             }
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDto model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+                var user = await _context.Employees
+                    .FirstOrDefaultAsync(x => x.email == model.email && x.contactNo == model.contactNo);
+                if(user == null)
+                {
+                    return Unauthorized(new { Message = "Invalid credentials" });
+                }
+
+                return Ok(new
+                {
+                    message = "Login successful",
+                    aata = new
+                    {
+                        user.employeeId,
+                        user.name,
+                        user.email,
+                        user.contactNo,
+                        user.designationId,
+                        user.designationName,
+                        user.role
+                    }
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = ex.Message });
+            }
+        }
+
     }
 }
